@@ -1,60 +1,56 @@
-import React from "react";
-import ReactECharts from "echarts-for-react";
-
-const data = [
-  {
-    id: 7635059,
-    tagId: "Tags.Line_1_Filler.Filler.Tags.Filler_production_counter",
-    machineId: "lahori-line1",
-    tagValue: "2394",
-    time: 1686623723025,
-    createdAt: "2023-06-13T02:38:08.000Z"
+const lineChartOption = {
+  tooltip: {
+    trigger: 'axis'
   },
-  {
-    id: 7635085,
-    tagId: "Tags.Line_1_Filler.Filler.Tags.Filler_production_counter",
-    machineId: "lahori-line1",
-    tagValue: "2394",
-    time: 1686623723025,
-    createdAt: "2023-06-13T02:38:09.000Z"
+  legend: {
+    data: ['Filled Bottles', 'Filler Main Motor', 'Labeller Production']
   },
-  {
-    id: 7635144,
-    tagId: "Tags.Line_1_Filler.Filler.Tags.Filler_production_counter",
-    machineId: "lahori-line1",
-    tagValue: "2877",
-    time: 1686623783035,
-    createdAt: "2023-06-13T02:39:01.000Z"
-  }
-];
+  grid: {
+     left: '3%',
+     right: '4%',
+     bottom: '3%',
+     top: '3%',
+     containLabel: true
+  }, 
+  toolbox: {
+    feature: {
+      saveAsImage: {},
+      dataZoom: {
+        yAxisIndex: 'none'
+      },
+      restore: {} 
+    }
 
-const LineChartData = () => {
-  const option = {
-    xAxis: {
-      type: "category",
-      data: data.map(item => item.time),
-      axisTick: {
-        alignWithLabel: true
-      }
+  },
+  xAxis: {
+    type: 'category',
+    boundaryGap: false,
+    data: ['12', '16', '20', '7', '4']
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      name: 'Filled Bottles',
+      data: [328631,465, 948, 1431, 1915, 2394, 2394,2877],
+      type: 'line',
+      stack:'Total'
     },
-    yAxis: {
-      type: "value"
+    {
+      name: 'Filler Main Motor',
+      type: 'line',
+      stack: 'Total',
+      data: [28525191, 5255137, 35267131, 35267131, 38589623, 38604615, 38625622, 38645120]
     },
-    tooltip: {
-      trigger: "axis",
-      axisPointer: {
-        type: "cross"
-      }
-    },
-    series: [
-      {
-        data: data.map(item => item.tagValue),
-        type: "line"
-      }
+    {
+      name: 'Labeller Production',
+      type: 'line',
+      stack: 'Total',
+      data: [235742, 244741, 267297, 290601, 302318, 332837, 336442, 340027]
+
+    }
     ]
-  };
-
-  return <ReactECharts option={option} style={{ width: "100%", height: "400px" }} />;
 };
 
-export default LineChartData;
+export default lineChartOption;
